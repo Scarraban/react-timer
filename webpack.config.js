@@ -12,6 +12,7 @@ var config = {
   externals: {
     jquery: 'jQuery'
   },
+  devtool: 'source-map',
   output: {
     path: __dirname,
     filename: PROD ? './public/bundle.min.js' : './public/bundle.js'
@@ -22,6 +23,7 @@ var config = {
       Nav: path.resolve(__dirname, 'app/components/Nav.jsx'),
       Timer: path.resolve(__dirname, 'app/components/Timer.jsx'),
       Countdown: path.resolve(__dirname, 'app/components/Countdown.jsx'),
+      Clock: path.resolve(__dirname, 'app/components/Clock.jsx'),
       applicationStyles: path.resolve(__dirname, 'app/styles/app.scss')
     },
     extensions: ['.js', '.jsx']
@@ -47,9 +49,5 @@ var config = {
     })
   ]
 };
-
-if(PROD == '0') {
-  config.devtool = 'source-map';
-}
 
 module.exports = config;
