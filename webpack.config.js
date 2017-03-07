@@ -24,6 +24,7 @@ var config = {
       Timer: path.resolve(__dirname, 'app/components/Timer.jsx'),
       Countdown: path.resolve(__dirname, 'app/components/Countdown.jsx'),
       Clock: path.resolve(__dirname, 'app/components/Clock.jsx'),
+      CountdownForm: path.resolve(__dirname, 'app/components/CountdownForm'),
       applicationStyles: path.resolve(__dirname, 'app/styles/app.scss')
     },
     extensions: ['.js', '.jsx']
