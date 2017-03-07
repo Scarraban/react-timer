@@ -5,8 +5,8 @@
   .menu-text {
     color: $nav-text-color;
   }
-  li.active {
-    font-weight: 'bold'
+  .active {
+    font-weight: bold;
   }
   .menu> .menu-text > a {
     display: inline;
