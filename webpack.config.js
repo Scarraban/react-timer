@@ -36,6 +36,15 @@ var config = {
         loader: 'babel-loader?presets[]=es2016&presets[]=react&presets[]=stage-0',
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/
+      },
+      {
+        loader: 'sass-loader',
+        test: /\.scss?$/,
+        options: {
+          includePaths: [
+            path.resolve(__dirname, './node_modules/foundation-sites/scss')
+          ]
+        }
       }
     ]
   },
