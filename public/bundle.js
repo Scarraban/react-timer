@@ -12462,7 +12462,7 @@ var Controls = React.createClass({
           { className: 'button secondary', onClick: this._onStatusChange('paused') },
           'Pause'
         );
-      } else if (countdownStatus === 'paused') {
+      } else {
         return React.createElement(
           'button',
           { className: 'button primary', onClick: this._onStatusChange('started') },
@@ -12703,15 +12703,64 @@ module.exports = Nav;
 /***/ (function(module, exports, __webpack_require__) {
 
 var React = __webpack_require__(5);
+var Clock = __webpack_require__(116);
+var Controls = __webpack_require__(117);
 
 var Timer = React.createClass({
   displayName: 'Timer',
 
+  _startTimer: function () {
+    this._timer = setInterval(() => {
+      var newCount = this.state.count + 1;
+      this.setState({
+        count: newCount <= 600 ? newCount : 600
+      });
+
+      if (newCount === 600) {
+        this.setState({ countdownStatus: 'stopped' });
+      }
+    }, 1000);
+  },
+  _handleStatusChange: function (newStatus) {
+    this.setState({ timerStatus: newStatus });
+  },
+  componentDidUpdate: function (prevProps, prevState) {
+    if (this.state.timerStatus !== prevState.timerStatus) {
+      switch (this.state.timerStatus) {
+        case 'started':
+          this._startTimer();
+          break;
+        case 'stopped':
+          this.setState({ count: 0 });
+        case 'paused':
+          clearInterval(this._timer);
+          this._timer = undefined;
+          break;
+      }
+    }
+  },
+  componentWillUnmount: function () {
+    clearInterval(this._timer);
+    this._timer = undefined;
+  },
+  getInitialState: function () {
+    return {
+      count: 0,
+      timerStatus: 'stopped'
+    };
+  },
   render: function () {
+    var { count, timerStatus } = this.state;
     return React.createElement(
-      'p',
+      'div',
       null,
-      'Timer.jsx'
+      React.createElement(
+        'h1',
+        { className: 'page-title' },
+        'Timer App'
+      ),
+      React.createElement(Clock, { totalSeconds: count }),
+      React.createElement(Controls, { countdownStatus: timerStatus, onStatusChange: this._handleStatusChange })
     );
   }
 });
